@@ -17,7 +17,7 @@
         <!--http://localhost:4200/posts/1/edit-->
         <a [routerLink]="['posts', this.posts[getPostIndex(iR, iC)].id, 'edit']" class="btn btn-outline-warning mx-1">MODIF.</a>
         <!--http://localhost:4200/posts/1/delete-->
-        <a [routerLink]="['posts', this.posts[getPostIndex(iR, iC)].id, 'delete']" class="btn btn-outline-danger mx-1">SUPP.</a>
+        <button (click)="onClickDeletePost(this.posts[getPostIndex(iR, iC)].id)" class="btn btn-outline-danger mx-1">SUPP.</button>
       </div>
 
     </div>

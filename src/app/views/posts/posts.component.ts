@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PostService} from '../../services/post/post.service';
+import {Post} from "../../models/post.model";
 
 @Component({
   selector: 'app-posts',
@@ -8,7 +9,7 @@ import {PostService} from '../../services/post/post.service';
 })
 export class PostsComponent implements OnInit {
 
-  posts: Array<any>;
+  posts: Array<Post>;
 
   nbCols: number;
   cols: Array<any>;
@@ -23,8 +24,8 @@ export class PostsComponent implements OnInit {
 
     this.postService.
     getPosts()
-      .then(res => {
-        this.posts = res;
+      .then((posts: Array<Post>) => {
+        this.posts = posts;
 
         this.nbRows = Math.ceil(this.posts.length / this.nbCols);
         this.rows =  new Array<any>(this.nbRows).fill(null);
@@ -33,6 +34,19 @@ export class PostsComponent implements OnInit {
 
   getPostIndex(iR: number, iC: number): number {
     return iR * this.nbCols + iC;
+  }
+
+  onClickDeletePost(id: number) {
+    this.postService
+      .deletePost(id)
+      .then(() => {
+        for (let i = 0; i < this.posts.length - 1; i++) {
+          if (this.posts[i].id === id) {
+            this.posts.splice(i, 1);
+            break;
+          }
+        }
+      });
   }
 
 }

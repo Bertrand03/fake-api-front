@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from "rxjs/operators";
 import {Post} from "../../models/post.model";
+import {forkJoin} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ import {Post} from "../../models/post.model";
 export class PostService {
 
   constructor(private http: HttpClient) { }
+
+  // Methode qui recupere les posts en provenance de l'API
 
   getPosts(): Promise<Array<Post>> {
 
@@ -21,6 +24,34 @@ export class PostService {
           return res.map((item: any) => Post.fromJSON(item));
         })
       )
+      .toPromise();
+  }
+
+  // Methode qui recupere les posts en fonction de son id
+
+  getPostAndComments(postId: number): Promise<any> {
+
+    return forkJoin<any>([
+    this.http
+      .get('https://jsonplaceholder.typicode.com/posts/' + postId), // On récupère les posts contenus dans l'url et on les affiche sous forme de Promise
+    this.http
+      .get(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`),
+    ])
+      .pipe(
+        map((res: any) => {
+          const post = res[0];
+          const comments = res[1];
+
+          post.comments = comments;
+
+          return Post.fromJSON(post);
+        })
+      )
+      .toPromise();
+  }
+
+  deletePost(postId: number): Promise<any> {
+    return this.http.delete('https://jsonplaceholder.typicode.com/posts/' + postId)
       .toPromise();
   }
 

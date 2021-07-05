@@ -1,15 +1,23 @@
+import {CommentModel} from "./comment.model";
+
 export class Post {
 
   private _id: number;
   private _title: string;
   private _body: string;
+  private _comments: Array<CommentModel>;
 
 
-  constructor(title: string, body: string, id?: number ) { // ? pour le "optionnel"
+  constructor(title: string, body: string, comments?: Array<CommentModel>, id?: number ) { // ? pour le "optionnel"
     // En JS 0 && 1 correspondent à false et true
     if (typeof id === 'number') {
       this._id = id;
     }
+
+    if (comments) {
+      this._comments = comments;
+    }
+
     this._title = title;
     this._body = body;
   }
@@ -38,7 +46,16 @@ export class Post {
     this._body = value;
   }
 
-  // Serializer
+
+  get comments(): Array<CommentModel> {
+    return this._comments;
+  }
+
+  set comments(value: Array<CommentModel>) {
+    this._comments = value;
+  }
+
+// Serializer
   toJSON(): any {
     return {
       id: this.id,
@@ -49,9 +66,16 @@ export class Post {
 
   // Deserializer
   static fromJSON(postAsJSON: any): Post { // static -> on a qu'a appeler le nom de la methode et on y accès partout dans le projet.
+
+    let comments = null;
+
+    if (postAsJSON.comments) {
+      comments = postAsJSON.comments.map((comment: any) => CommentModel.fromJSON(comment));
+    }
     return new Post(
       postAsJSON.title,
       postAsJSON.body,
+      comments,
       postAsJSON.id
     );
   }
