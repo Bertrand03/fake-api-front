@@ -11,6 +11,8 @@ import { PostFormComponent } from './components/post-form/post-form.component';
 import { ErrorsFormComponent } from './components/errors-form/errors-form.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import {HttpClientModule} from '@angular/common/http';
+import {PostService} from './services/post/post.service';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,10 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [PostService], // on met PostService pour en faire un singleton et le partager avec tout le monde
   bootstrap: [AppComponent]
 })
 export class AppModule { }
