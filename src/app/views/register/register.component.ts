@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
     if (this.form.valid) {
 
       this.authService
-        .login(this.user)
+        .register(this.user)
         .then(() => this.router.navigateByUrl('/'))
         .catch((errMsg) => this.errMsg = errMsg);
     }

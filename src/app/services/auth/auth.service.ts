@@ -8,6 +8,12 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AuthService {
 
+  // Subject => Observable, sur lequel il faut ouvrir un tuyau pour récupérer la valeur qui transite
+  // mais il est simple puisqu'il ne garde aucun cache
+
+  // BehaviorSubject => Subject + il garde la dernière valeur en cache et quand on va ouvrir le tuyau
+  // de connexion, par défaut, il va nous renvoyer la dernière valeur en cache
+
   token: BehaviorSubject<string>;
 
   constructor(private http: HttpClient) {
