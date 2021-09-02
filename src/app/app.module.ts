@@ -14,6 +14,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PostService} from './services/post/post.service';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
+import {AuthService} from "./services/auth/auth.service";
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     PostFormComponent,
     ErrorsFormComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     FormsModule, // Nécessaire pour gérer les formulaires
     ReactiveFormsModule // Nécessaire pour gérer les formulaires
   ],
-  providers: [PostService], // on met PostService pour en faire un singleton et le partager avec tout le monde
+  providers: [PostService, AuthService], // on met PostService pour en faire un singleton et le partager avec tout le monde
   bootstrap: [AppComponent]
 })
 export class AppModule { }

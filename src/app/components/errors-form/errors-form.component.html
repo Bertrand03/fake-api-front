@@ -5,6 +5,10 @@
     * Le champ '{{controlLabel}}' est obligatoire.
   </div>
 
+  <div *ngIf="control.errors?.email">
+    * Le champ '{{controlLabel}}' n'est pas au format email.
+  </div>
+
   <div *ngIf="control.errors?.minLength">
     * Le champ '{{controlLabel}}' doit avoir au
     minimum {{control.errors?.minLength.requiredLength}}
@@ -15,7 +19,7 @@
   <div *ngIf="control.errors?.maxLength">
     * Le champ '{{controlLabel}}' doit avoir au
     maximum {{control.errors?.maxLength.requiredLength}}
-    {{control.errors?.maxLength.requiredLength === 1 ? 'caractère' : 'caractères'}}.
+    {{control.errors?.maxLength.requiredLength === 15 ? 'caractère' : 'caractères'}}.
   </div>
 
 </div>

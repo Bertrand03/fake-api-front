@@ -1,0 +1,61 @@
+<div class="class container">
+
+  <div class="row col card m-3 p-3 shadow">
+
+    <div class="card-body">
+      <h3 class="card-title text-center">CONNEXION</h3>
+
+      <div *ngIf="this.errMsg" class="alert alert-danger m-5">
+        {{this.errMsg}}
+      </div>
+
+      <form (ngSubmit)="onSubmittedForm()" [formGroup]="form">
+
+        <div>
+
+        <div class="form-group m-3">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="email"
+            placeholder="Votre email"
+            [(ngModel)]="user.email">
+
+          <app-errors-form [control]="form.controls.email" controlLabel="Adresse email"></app-errors-form>
+
+        </div>
+
+        <div class="form-group m-3">
+
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="Votre mot de passe"
+            [(ngModel)]="user.password">
+
+          <app-errors-form [control]="form.controls.password" controlLabel="Mot de passe"></app-errors-form>
+
+          <!--</div>-->
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-dark btn-lg text-uppercase"
+          [disabled]="form.invalid">
+          ENVOYER
+        </button>
+
+          <br>
+
+          <a routerLink="/signup" class="text-dark">Pas encore inscrit ? On t'attend maintenant !</a>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,1 +1,14 @@
-<p>edit-post works!</p>
+<div class="class container">
+
+  <div class="row col card m-3 p-3 shadow">
+    <div class="class card-body">
+      <h5 class="card-title">EDITION ARTICLE</h5>
+      <app-post-form
+        *ngIf="post"
+        [post]="post"
+        (formSubmitted)="editPost($event)">
+      </app-post-form>
+    </div>
+  </div>
+
+</div>

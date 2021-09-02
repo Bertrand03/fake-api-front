@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Post} from '../../models/post.model';
 
@@ -11,16 +11,18 @@ export class PostFormComponent implements OnInit {
 
   @Output() formSubmitted: EventEmitter<any>
 
-  post: Post;
+  @Input() post: Post;
 
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.post = new Post('', '');
     this.formSubmitted = new EventEmitter<any>();
   }
 
   ngOnInit(): void {
+    if (!this.post) {
+      this.post = new Post('', '');
+    }
     this.initForm();
   }
 

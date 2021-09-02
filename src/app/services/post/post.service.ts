@@ -54,10 +54,29 @@ export class PostService {
       .toPromise();
   }
 
+  /**
+   * Method for retrieve a post
+   * @param postId
+   */
+  getPost(postId: number): Promise<Post> {
+
+    return this.http
+      .get('https://jsonplaceholder.typicode.com/posts/' + postId) // On récupère les posts contenus dans l'url et on les affiche sous forme de Promise
+      .pipe(
+        map((postAsJSON: any) => Post.fromJSON(postAsJSON)))
+      .toPromise();
+  }
+
   // Récupère le post de type Post pour en faire un objet JSON
   addPost(postToAdd: Post): Promise<any> {
     return this.http
       .post('https://jsonplaceholder.typicode.com/posts/', postToAdd.toJSON())
+      .toPromise();
+  }
+
+  editPost(postToEdit: Post): Promise<any> {
+    return this.http
+      .put('https://jsonplaceholder.typicode.com/posts/' + postToEdit.id, postToEdit.toJSON())
       .toPromise();
   }
 
