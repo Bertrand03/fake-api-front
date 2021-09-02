@@ -15,6 +15,10 @@ export class PostService {
 
   getPosts(): Promise<Array<Post>> {
 
+    // Observable vs Promise
+    // Promise => One Shot
+    // Observable => (talkie walkie), tant que le canal est ouvert on peut parler
+
     // RxJS -> AJAX avancé
     // pipe -> sert à transformer notre format JSON et les mapper pour renvoyer un tableau de type Post
     return this.http

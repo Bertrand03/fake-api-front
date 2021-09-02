@@ -1,1 +1,47 @@
-<p>post-form works!</p>
+<form (ngSubmit)="onFormSubmitted()" [formGroup]="form">
+
+  <div class="form-group">
+    <label for="title">
+      Titre de l'article
+    </label>
+    <input
+      type="text"
+      id="title"
+      class="form-control"
+      formControlName="title"
+    [(ngModel)]="post.title">
+    <!--crochets parenthèses pour mettre à jour dynamiquement la valeur et l'afficher dans la vue -->
+
+  </div>
+
+  <div class="form-group">
+    <label for="body">
+      Contenu de l'article
+    </label>
+    <textarea
+      id="body"
+      class="form-control"
+      formControlName="body"
+      [(ngModel)]="post.body"></textarea>
+
+    <!--Gestion des erreurs pour le controle du textearea, est-ce qu'il est bien rempli-->
+    <div *ngIf="form.controls.body.invalid && (form.controls.body.dirty || form.controls.body.touched)"
+        class="alert alert-danger mt-1">
+      <!--Balise "ng-container" qui existe mais qui n'apparait pas dans le DOM. A privilégier par rapport à une div-->
+      <!--ng-container est utile aussi pour les ngFor-->
+      <!--Le ? après errors sert à dire qu'il faut d'abord vérifier cette condition avant de vérifier le required-->
+      <ng-container *ngIf="form.controls.body.errors?.required">
+        Le contenu de l'article est obligatoire
+      </ng-container>
+
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-dark btn-lg text-uppercase"
+    [disabled]="form.invalid">
+    ENVOYER
+  </button>
+
+</form>

@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PostService} from './services/post/post.service';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import {PostService} from './services/post/post.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule, // Nécessaire pour gérer les formulaires
+    ReactiveFormsModule // Nécessaire pour gérer les formulaires
   ],
   providers: [PostService], // on met PostService pour en faire un singleton et le partager avec tout le monde
   bootstrap: [AppComponent]
