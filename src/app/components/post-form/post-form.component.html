@@ -12,6 +12,8 @@
     [(ngModel)]="post.title">
     <!--crochets parenthèses pour mettre à jour dynamiquement la valeur et l'afficher dans la vue -->
 
+    <app-errors-form [control]="form.controls.title" controlLabel="Titre de l'article"></app-errors-form>
+
   </div>
 
   <div class="form-group">
@@ -24,17 +26,22 @@
       formControlName="body"
       [(ngModel)]="post.body"></textarea>
 
-    <!--Gestion des erreurs pour le controle du textearea, est-ce qu'il est bien rempli-->
-    <div *ngIf="form.controls.body.invalid && (form.controls.body.dirty || form.controls.body.touched)"
-        class="alert alert-danger mt-1">
-      <!--Balise "ng-container" qui existe mais qui n'apparait pas dans le DOM. A privilégier par rapport à une div-->
-      <!--ng-container est utile aussi pour les ngFor-->
-      <!--Le ? après errors sert à dire qu'il faut d'abord vérifier cette condition avant de vérifier le required-->
-      <ng-container *ngIf="form.controls.body.errors?.required">
-        Le contenu de l'article est obligatoire
-      </ng-container>
+    <!--1ere méthode-->
+    <!--&lt;!&ndash;Gestion des erreurs pour le controle du textearea, est-ce qu'il est bien rempli&ndash;&gt;-->
+    <!--<div *ngIf="form.controls.body.invalid && (form.controls.body.dirty || form.controls.body.touched)"-->
+        <!--class="alert alert-danger mt-1">-->
+      <!--&lt;!&ndash;Balise "ng-container" qui existe mais qui n'apparait pas dans le DOM. A privilégier par rapport à une div&ndash;&gt;-->
+      <!--&lt;!&ndash;ng-container est utile aussi pour les ngFor&ndash;&gt;-->
+      <!--&lt;!&ndash;Le ? après errors sert à dire qu'il faut d'abord vérifier cette condition avant de vérifier le required&ndash;&gt;-->
+      <!--<ng-container *ngIf="form.controls.body.errors?.required">-->
+        <!--Le contenu de l'article est obligatoire-->
+      <!--</ng-container>-->
 
-    </div>
+      <!--2eme méthode-->
+      <!--En utilisant une méthode générique de gestion d'erreurs-->
+      <app-errors-form [control]="form.controls.body" controlLabel="Contenu article"></app-errors-form>
+
+    <!--</div>-->
   </div>
 
   <button

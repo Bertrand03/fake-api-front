@@ -54,8 +54,16 @@ export class PostService {
       .toPromise();
   }
 
+  // Récupère le post de type Post pour en faire un objet JSON
+  addPost(postToAdd: Post): Promise<any> {
+    return this.http
+      .post('https://jsonplaceholder.typicode.com/posts/', postToAdd.toJSON())
+      .toPromise();
+  }
+
   deletePost(postId: number): Promise<any> {
-    return this.http.delete('https://jsonplaceholder.typicode.com/posts/' + postId)
+    return this.http
+      .delete('https://jsonplaceholder.typicode.com/posts/' + postId)
       .toPromise();
   }
 

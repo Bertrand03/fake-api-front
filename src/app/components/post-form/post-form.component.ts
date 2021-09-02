@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Post} from '../../models/post.model';
 
@@ -9,12 +9,15 @@ import {Post} from '../../models/post.model';
 })
 export class PostFormComponent implements OnInit {
 
+  @Output() formSubmitted: EventEmitter<any>
+
   post: Post;
 
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.post = new Post('', '');
+    this.formSubmitted = new EventEmitter<any>();
   }
 
   ngOnInit(): void {
@@ -24,8 +27,7 @@ export class PostFormComponent implements OnInit {
   // Controle pour voir ce que vaut le post
   onFormSubmitted(): void {
     if (this.form.valid) {
-      console.log('this.post vaut : ');
-      console.log(this.post);
+      this.formSubmitted.emit(this.post); // emit(this.post) correspond à mon $event dans mon html
     }
   }
 

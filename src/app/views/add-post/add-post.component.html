@@ -1,9 +1,11 @@
 <div class="class container">
 
   <div class="row col card m-3 p-3 shadow">
-
-    <app-post-form></app-post-form>
-
+    <div class="class card-body">
+      <h5 class="card-title">CREATION ARTICLE</h5>
+      <app-post-form (formSubmitted)="addPost($event)">
+      </app-post-form>
+    </div>
   </div>
 
 </div>
